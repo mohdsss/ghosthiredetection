@@ -63,6 +63,14 @@ def download_architecture_pdf():
         return FileResponse(pdf_path, media_type="application/pdf", filename="GhostHire_System_Architecture.pdf")
     raise HTTPException(status_code=404, detail="Architecture PDF not found")
 
+@router.get("/download-documentation-pdf")
+def download_documentation_pdf():
+    """Download the official Project Documentation PDF document."""
+    pdf_path = os.path.join(os.path.dirname(__file__), "..", "..", "GhostHire_Project_Documentation.pdf")
+    if os.path.exists(pdf_path):
+        return FileResponse(pdf_path, media_type="application/pdf", filename="GhostHire_Project_Documentation.pdf")
+    raise HTTPException(status_code=404, detail="Documentation PDF not found")
+
 @router.post("/analyze", response_model=AnalyzeResponse)
 async def analyze_opportunity(payload: AnalyzeRequest):
     """Analyze opportunity from pasted text or S3 key reference."""

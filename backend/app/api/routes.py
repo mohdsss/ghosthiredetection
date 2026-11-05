@@ -34,6 +34,12 @@ def get_sample_opportunities():
     """Pre-loaded sample messages for easy judging and live demonstration."""
     return [
         {
+            "id": "sample-google-scam",
+            "title": "Fake Google Summer Internship Scam (WhatsApp)",
+            "risk_expected": "HIGH (65/100)",
+            "text": "Congratulations! You have been selected for the Google Summer Internship 2026 (SWE Intern). Stipend: ₹1,25,000/month. Direct selection is guaranteed without interview. Pay ₹1,499 registration fee for Google Cloud assessment voucher today. Apply through: bit.ly/google-careers-portal. Confirm within 30 minutes to secure your seat!"
+        },
+        {
             "id": "sample-high-risk",
             "title": "Nexora Labs WhatsApp Scam (High Risk)",
             "risk_expected": "HIGH (65/100)",

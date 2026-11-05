@@ -213,6 +213,16 @@ class AWSService:
             logger.error(f"Error reading community reports: {e}")
         return matched
 
+    def get_all_community_reports(self, limit: int = 50) -> List[Dict[str, Any]]:
+        """Retrieve all verified community reports sorted by recency."""
+        try:
+            with open(self.local_community_file, "r", encoding="utf-8") as f:
+                all_reports = json.load(f)
+            return all_reports[:limit]
+        except Exception as e:
+            logger.error(f"Error reading all community reports: {e}")
+            return []
+
     def get_community_reports_for_domain(self, domain: str) -> List[Dict[str, Any]]:
         """Retrieve verified community reports for a domain (backwards-compatible alias)."""
         return self.search_community_reports(domain)

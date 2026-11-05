@@ -7,6 +7,7 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
   const [domainResult, setDomainResult] = useState(null);
   const [isSearching, setIsSearching] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [recentFeed, setRecentFeed] = useState([]);
 
   // Modal form state
   const [formData, setFormData] = useState({
@@ -20,7 +21,20 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
   const [submitting, setSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState(null);
 
+  const fetchRecentReports = async () => {
+    try {
+      const res = await fetch('/api/community-feed?limit=10');
+      if (res.ok) {
+        const data = await res.json();
+        setRecentFeed(data);
+      }
+    } catch (e) {
+      console.error('Failed to load recent reports', e);
+    }
+  };
+
   useEffect(() => {
+    fetchRecentReports();
     if (initialDomain) {
       setSearchDomain(initialDomain);
       fetchDomainIntelligence(initialDomain);
@@ -72,13 +86,16 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
         body: JSON.stringify(payload)
       });
       if (res.ok) {
-        setSubmitMessage('Threat keyword saved! Risk Engine has been automatically updated.');
+        const submittedIdentifier = formData.domain;
+        setSubmitMessage('Threat report recorded! Identifier and student report are now live in Community Radar.');
         setTimeout(() => {
           setShowModal(false);
           setSubmitMessage(null);
-          fetchDomainIntelligence(formData.domain);
+          setSearchDomain(submittedIdentifier);
+          fetchDomainIntelligence(submittedIdentifier);
+          fetchRecentReports();
           if (onReportSuccess) onReportSuccess();
-        }, 1500);
+        }, 1200);
       }
     } catch (err) {
       alert('Error submitting report.');
@@ -183,35 +200,107 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
               </p>
             </div>
           ) : (
-            <div className="space-y-3 relative z-10">
+            <div className="space-y-4 relative z-10">
               {domainResult.reports.map((rep) => (
                 <div 
                   key={rep.id} 
                   onMouseEnter={playHoverSound}
-                  className="p-4 rounded-xl bg-hollow-abyss/80 border border-hollow-border hover:border-hollow-amber/50 transition duration-200 shadow-md"
+                  className="p-5 rounded-xl bg-hollow-abyss/90 border border-hollow-border hover:border-hollow-amber/60 transition duration-200 shadow-lg space-y-3"
                 >
-                  <div className="flex items-center justify-between text-xs text-hollow-muted mb-2 font-mono">
-                    <span className="flex items-center gap-1.5 text-hollow-lavender font-semibold">
-                      <User className="w-3.5 h-3.5" />
-                      {rep.reporter_alias}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5" />
-                      {new Date(rep.created_at).toLocaleDateString()}
-                    </span>
+                  {/* Card Header */}
+                  <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono pb-2 border-b border-hollow-border/60">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="px-2.5 py-1 rounded-lg bg-hollow-crimson/20 border border-hollow-crimson/50 text-hollow-crimson font-bold flex items-center gap-1.5">
+                        <ShieldAlert className="w-3.5 h-3.5" />
+                        FLAGGED: {rep.domain}
+                      </span>
+                      {rep.keywords && rep.keywords.length > 0 && (
+                        <span className="px-2 py-0.5 rounded bg-hollow-purple/20 border border-hollow-purple/40 text-hollow-lavender text-[10px]">
+                          Tags: {rep.keywords.slice(0, 4).join(', ')}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-3 text-hollow-muted">
+                      <span className="flex items-center gap-1.5 text-hollow-lavender">
+                        <User className="w-3.5 h-3.5" />
+                        {rep.reporter_alias}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5" />
+                        {new Date(rep.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
                   </div>
 
-                  <h4 className="text-sm font-bold text-hollow-text mb-1 font-cinzel">
-                    {rep.opportunity_title || 'Unspecified Offer'}
+                  {/* Opportunity Title */}
+                  <h4 className="text-sm font-bold text-hollow-amber font-cinzel flex items-center gap-1.5">
+                    <Flame className="w-4 h-4 text-hollow-amber" />
+                    {rep.opportunity_title || 'Unspecified Suspicious Opportunity'}
                   </h4>
 
-                  <p className="text-xs text-hollow-text/95 bg-hollow-surface/90 p-3 rounded-lg border border-hollow-border/70 font-mono shadow-inner">
-                    "{rep.notes}"
-                  </p>
+                  {/* Written Student Report Description / Notes */}
+                  <div className="p-3.5 rounded-xl bg-hollow-surface/95 border border-hollow-border/80 font-mono shadow-inner">
+                    <div className="text-[10px] uppercase tracking-wider text-hollow-muted font-bold mb-1 flex items-center gap-1.5">
+                      <Scroll className="w-3 h-3 text-hollow-amber" />
+                      Student Evidence & Scam Report:
+                    </div>
+                    <p className="text-xs text-hollow-text/95 leading-relaxed whitespace-pre-wrap">
+                      "{rep.notes}"
+                    </p>
+                  </div>
+
+                  {/* Active Protection Note */}
+                  <div className="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 pt-1">
+                    <CheckCircle className="w-3 h-3 flex-shrink-0" />
+                    <span>Active Protection: Any scan matching "{rep.domain}" triggers automated High Risk alert.</span>
+                  </div>
                 </div>
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Live Recent Community Reports Feed */}
+      {recentFeed.length > 0 && (
+        <div className="hollow-card-3d hollow-frame rounded-2xl p-6 sm:p-7 relative overflow-hidden">
+          <div className="flex items-center justify-between pb-3 border-b border-hollow-border/80 mb-4 relative z-10">
+            <div className="flex items-center gap-2">
+              <Scroll className="w-4 h-4 text-hollow-amber" />
+              <h3 className="text-sm font-bold text-hollow-text font-cinzel">
+                Recent Campus Threat Reports ({recentFeed.length})
+              </h3>
+            </div>
+            <span className="text-[10px] font-mono text-hollow-muted">
+              Live Feed from Student Guild Registry
+            </span>
+          </div>
+
+          <div className="space-y-3 relative z-10">
+            {recentFeed.slice(0, 5).map((feedItem) => (
+              <div
+                key={feedItem.id}
+                onClick={() => {
+                  setSearchDomain(feedItem.domain);
+                  fetchDomainIntelligence(feedItem.domain);
+                }}
+                className="p-3.5 rounded-xl bg-hollow-abyss/70 border border-hollow-border/80 hover:border-hollow-amber/60 cursor-pointer transition text-xs font-mono space-y-1.5"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-bold text-hollow-amber flex items-center gap-1">
+                    <ShieldAlert className="w-3 h-3 text-hollow-crimson" />
+                    {feedItem.domain}
+                  </span>
+                  <span className="text-[10px] text-hollow-muted">
+                    {new Date(feedItem.created_at).toLocaleDateString()}
+                  </span>
+                </div>
+                <p className="text-hollow-text/80 line-clamp-2 text-[11px]">
+                  "{feedItem.notes}"
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
 

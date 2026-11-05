@@ -203,6 +203,12 @@ def get_community_domain_intelligence(domain: str):
         reports=[CommunityReportItem(**r) for r in reports]
     )
 
+@router.get("/community-feed", response_model=List[CommunityReportItem])
+def get_community_feed(limit: int = Query(20, ge=1, le=100)):
+    """Fetch the latest submitted student threat reports."""
+    reports = aws_service.get_all_community_reports(limit=limit)
+    return [CommunityReportItem(**r) for r in reports]
+
 @router.get("/history")
 def get_recent_scans(limit: int = Query(10, ge=1, le=50)):
     """Fetch recent scans for the dashboard history."""

@@ -1,5 +1,215 @@
 [
   {
+    "id": "gh-319c5dad8b",
+    "risk_score": 100,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'phantomhiringcorp' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'phantomhiringcorp' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      },
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'phantomhiringcorp' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'phantomhiringcorp' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      },
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'phantomhiringcorp' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'phantomhiringcorp' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You are selected for Web3 position at PhantomHiringCorp. Check details.",
+    "detected_domains": [],
+    "community_flags": 3,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T18:03:46.316133+00:00"
+  },
+  {
+    "id": "gh-a6dca84b39",
+    "risk_score": 100,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "UPFRONT_PAYMENT",
+        "points": 25,
+        "evidence": "Pay \u20b9999",
+        "recommendation": "Never pay upfront fees for a job or internship. Legitimate employers pay employees, not the reverse."
+      },
+      {
+        "signal": "GUARANTEED_SELECTION",
+        "points": 15,
+        "evidence": "Selection is guaranteed",
+        "recommendation": "Be skeptical of offers promising 100% selection or bypassing technical evaluation and merit checks."
+      },
+      {
+        "signal": "SUSPICIOUS_URL",
+        "points": 15,
+        "evidence": "bit.ly/example.",
+        "recommendation": "Shortened links obscure the final destination. Always navigate directly through the employer's official website."
+      },
+      {
+        "signal": "ARTIFICIAL_URGENCY",
+        "points": 10,
+        "evidence": "Reply within 30 minutes",
+        "recommendation": "Scammers leverage short deadlines to provoke hasty decisions. Take pause and independently verify."
+      },
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'intern' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'intern' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      },
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'intern' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'intern' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You have been shortlisted for the Nexora Labs internship. Pay \u20b9999 registration fees today. Selection is guaranteed. Apply through bit.ly/example. Reply within 30 minutes to secure your seat.",
+    "detected_domains": [
+      "bit.ly"
+    ],
+    "community_flags": 2,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T18:03:43.748354+00:00"
+  },
+  {
+    "id": "gh-9358c5d72d",
+    "risk_score": 70,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'phantomhiringcorp' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'phantomhiringcorp' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      },
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'phantomhiringcorp' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'phantomhiringcorp' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You are selected for Web3 position at PhantomHiringCorp. Check details.",
+    "detected_domains": [],
+    "community_flags": 2,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T18:03:11.182340+00:00"
+  },
+  {
+    "id": "gh-d953b807d8",
+    "risk_score": 100,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "UPFRONT_PAYMENT",
+        "points": 25,
+        "evidence": "Pay \u20b9999",
+        "recommendation": "Never pay upfront fees for a job or internship. Legitimate employers pay employees, not the reverse."
+      },
+      {
+        "signal": "GUARANTEED_SELECTION",
+        "points": 15,
+        "evidence": "Selection is guaranteed",
+        "recommendation": "Be skeptical of offers promising 100% selection or bypassing technical evaluation and merit checks."
+      },
+      {
+        "signal": "SUSPICIOUS_URL",
+        "points": 15,
+        "evidence": "bit.ly/example.",
+        "recommendation": "Shortened links obscure the final destination. Always navigate directly through the employer's official website."
+      },
+      {
+        "signal": "ARTIFICIAL_URGENCY",
+        "points": 10,
+        "evidence": "Reply within 30 minutes",
+        "recommendation": "Scammers leverage short deadlines to provoke hasty decisions. Take pause and independently verify."
+      },
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'intern' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'intern' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You have been shortlisted for the Nexora Labs internship. Pay \u20b9999 registration fees today. Selection is guaranteed. Apply through bit.ly/example. Reply within 30 minutes to secure your seat.",
+    "detected_domains": [
+      "bit.ly"
+    ],
+    "community_flags": 1,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T18:03:08.290734+00:00"
+  },
+  {
+    "id": "gh-f1784abc4d",
+    "risk_score": 35,
+    "risk_level": "MEDIUM",
+    "findings": [
+      {
+        "signal": "COMMUNITY_KEYWORD_FLAG",
+        "points": 35,
+        "evidence": "Flagged by Community Radar: 'phantomhiringcorp' \u2014 Student report: \"Asks students to buy phantom tokens for job verification.\"",
+        "recommendation": "The keyword, recruiter, or domain 'phantomhiringcorp' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+      }
+    ],
+    "recommendation": "Elevated risk signals detected. Conduct thorough background checks before taking any action or submitting documents.",
+    "extracted_text": "Congratulations! You are selected for Web3 position at PhantomHiringCorp. Check details.",
+    "detected_domains": [],
+    "community_flags": 1,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T18:02:54.380571+00:00"
+  },
+  {
+    "id": "gh-b1650a27e2",
+    "risk_score": 65,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "UPFRONT_PAYMENT",
+        "points": 25,
+        "evidence": "Pay \u20b9999",
+        "recommendation": "Never pay upfront fees for a job or internship. Legitimate employers pay employees, not the reverse."
+      },
+      {
+        "signal": "GUARANTEED_SELECTION",
+        "points": 15,
+        "evidence": "Selection is guaranteed",
+        "recommendation": "Be skeptical of offers promising 100% selection or bypassing technical evaluation and merit checks."
+      },
+      {
+        "signal": "SUSPICIOUS_URL",
+        "points": 15,
+        "evidence": "bit.ly/example.",
+        "recommendation": "Shortened links obscure the final destination. Always navigate directly through the employer's official website."
+      },
+      {
+        "signal": "ARTIFICIAL_URGENCY",
+        "points": 10,
+        "evidence": "Reply within 30 minutes",
+        "recommendation": "Scammers leverage short deadlines to provoke hasty decisions. Take pause and independently verify."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You have been shortlisted for the Nexora Labs internship. Pay \u20b9999 registration fees today. Selection is guaranteed. Apply through bit.ly/example. Reply within 30 minutes to secure your seat.",
+    "detected_domains": [
+      "bit.ly"
+    ],
+    "community_flags": 0,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T17:58:33.953429+00:00"
+  },
+  {
     "id": "gh-7459a0429d",
     "risk_score": 65,
     "risk_level": "HIGH",

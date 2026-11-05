@@ -227,7 +227,13 @@ class RiskEngine:
                 )
         return None
 
-    def analyze(self, text: str, source: str = "text_input", community_matches: int = 0) -> AnalyzeResponse:
+    def analyze(
+        self, 
+        text: str, 
+        source: str = "text_input", 
+        community_matches: int = 0,
+        community_threat_details: Optional[List[Dict[str, Any]]] = None
+    ) -> AnalyzeResponse:
         """Run all explainable risk detectors over the submitted text."""
         findings: List[Finding] = []
         urls = self.extract_urls(text)
@@ -251,12 +257,28 @@ class RiskEngine:
             if res:
                 findings.append(res)
 
-        # Include community reputation penalty if domains have prior verified reports
-        if community_matches > 0:
+        # Include specific community threat keyword detections
+        if community_threat_details:
+            for threat in community_threat_details:
+                kw = threat.get("matched_keyword", "suspicious_keyword")
+                notes_snip = threat.get("notes", "").strip()
+                if len(notes_snip) > 85:
+                    notes_snip = notes_snip[:85] + "..."
+                evidence_text = f"Flagged by Community Radar: '{kw}'"
+                if notes_snip:
+                    evidence_text += f" — Student report: \"{notes_snip}\""
+                findings.append(Finding(
+                    signal="COMMUNITY_KEYWORD_FLAG",
+                    points=35,
+                    evidence=evidence_text,
+                    recommendation=f"The keyword, recruiter, or domain '{kw}' was actively reported by peer students on Community Threat Radar. Do not proceed or send funds."
+                ))
+        elif community_matches > 0:
+            # Fallback general community penalty if no specific threat detail dicts
             findings.append(Finding(
                 signal="COMMUNITY_REPORTS",
-                points=min(25, community_matches * 10),
-                evidence=f"{community_matches} user report(s) flagged against associated domains",
+                points=min(30, community_matches * 10),
+                evidence=f"{community_matches} user report(s) flagged against associated domains in Community Radar",
                 recommendation="This domain or pattern has previously been flagged by fellow students in the community."
             ))
 

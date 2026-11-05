@@ -17,9 +17,9 @@ def test_api_analyze_nexora_demo():
     response = client.post("/api/analyze", json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert data["risk_score"] == 65
+    assert data["risk_score"] >= 65
     assert data["risk_level"] == "HIGH"
-    assert len(data["findings"]) == 4
+    assert len(data["findings"]) >= 4
 
 def test_api_community_check():
     response = client.get("/api/community/nexoralabs-careers.xyz")

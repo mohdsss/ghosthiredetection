@@ -11,6 +11,7 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
   // Modal form state
   const [formData, setFormData] = useState({
     domain: initialDomain || '',
+    keywords: '',
     opportunity_title: '',
     notes: '',
     reporter_alias: 'Campus Student',
@@ -56,18 +57,22 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
     e.preventDefault();
     playClickSound();
     if (!formData.domain || !formData.notes || !formData.user_consent) {
-      alert('Please fill domain, notes and grant consent.');
+      alert('Please fill domain/keyword, notes and grant consent.');
       return;
     }
     setSubmitting(true);
     try {
+      const payload = {
+        ...formData,
+        keywords: formData.keywords ? formData.keywords.split(',').map(k => k.trim()).filter(Boolean) : []
+      };
       const res = await fetch('/api/report', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
       if (res.ok) {
-        setSubmitMessage('Report successfully recorded into Guild Bounty Registry!');
+        setSubmitMessage('Threat keyword saved! Risk Engine has been automatically updated.');
         setTimeout(() => {
           setShowModal(false);
           setSubmitMessage(null);
@@ -120,7 +125,7 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
               type="text"
               value={searchDomain}
               onChange={(e) => setSearchDomain(e.target.value)}
-              placeholder="Search domain or short link (e.g. bit.ly, nexora-careers.xyz)..."
+              placeholder="Search keyword, company, or domain (e.g. 'Nexora Labs', 'deposit fee', 'bit.ly')..."
               className="w-full bg-hollow-abyss/80 border border-hollow-border/90 rounded-xl pl-10 pr-4 py-2.5 text-sm text-hollow-text placeholder-hollow-muted/50 focus:outline-none focus:border-hollow-amber focus:ring-1 focus:ring-hollow-amber transition font-mono shadow-inner"
             />
           </div>
@@ -140,7 +145,7 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
         <div className="hollow-card-3d hollow-frame rounded-2xl p-6 sm:p-7 relative overflow-hidden">
           <div className="flex items-center justify-between pb-4 border-b border-hollow-border/80 mb-5 relative z-10">
             <div>
-              <span className="text-xs font-mono text-hollow-muted uppercase tracking-wider">Target Domain</span>
+              <span className="text-xs font-mono text-hollow-muted uppercase tracking-wider">Target Query / Keyword</span>
               <h3 className="text-xl font-bold font-mono text-hollow-amber flex items-center gap-2">
                 <Flame className="w-4 h-4 text-hollow-amber" />
                 {domainResult.domain}
@@ -157,12 +162,24 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
             </div>
           </div>
 
+          {domainResult.total_reports > 0 && (
+            <div className="mb-4 p-3.5 rounded-xl bg-hollow-crimson/15 border border-hollow-crimson/60 flex items-start gap-3 relative z-10">
+              <AlertTriangle className="w-5 h-5 text-hollow-crimson flex-shrink-0 mt-0.5" />
+              <div>
+                <div className="text-xs font-bold text-hollow-crimson font-cinzel">COMMUNITY THREAT RADAR ACTIVE</div>
+                <p className="text-[11px] text-hollow-text/90 font-mono mt-0.5">
+                  Keyword or domain <span className="text-hollow-amber font-bold">"{domainResult.domain}"</span> is actively flagged. Any opportunity or WhatsApp screenshot scanned containing this keyword will automatically be flagged as High Risk in the scanner!
+                </p>
+              </div>
+            </div>
+          )}
+
           {domainResult.reports.length === 0 ? (
             <div className="text-center py-8 relative z-10">
               <CheckCircle className="w-9 h-9 text-emerald-400 mx-auto mb-2 drop-shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-              <p className="text-sm font-medium text-hollow-text font-cinzel">No reports logged against this domain.</p>
+              <p className="text-sm font-medium text-hollow-text font-cinzel">No reports logged against this keyword or domain.</p>
               <p className="text-xs text-hollow-muted mt-1 font-mono">
-                Notice anything suspicious? Submit a report to protect other applicants.
+                Notice anything suspicious? Submit a report with this keyword to protect other students.
               </p>
             </div>
           ) : (
@@ -224,16 +241,37 @@ export default function CommunityRadar({ initialDomain, onReportSuccess }) {
               </div>
             ) : (
               <form onSubmit={handleFormSubmit} className="space-y-4 text-xs font-mono">
+                <div className="p-3 rounded-xl bg-hollow-amber/10 border border-hollow-amber/40 text-[11px] text-hollow-amber flex items-start gap-2">
+                  <Sparkles className="w-4 h-4 flex-shrink-0 mt-0.5" />
+                  <span>
+                    <strong>⚡ Automatic Risk Sync:</strong> Once submitted, any student who scans text or a WhatsApp chat containing this keyword will automatically be warned with a High Risk alert!
+                  </span>
+                </div>
+
                 <div>
-                  <label className="block text-hollow-muted font-bold mb-1">Domain or Identifier *</label>
+                  <label className="block text-hollow-muted font-bold mb-1">Domain, Company, or Threat Keyword *</label>
                   <input
                     type="text"
                     required
                     value={formData.domain}
                     onChange={(e) => setFormData({ ...formData, domain: e.target.value })}
-                    placeholder="e.g. bit.ly, nexora-careers.xyz"
-                    className="w-full bg-hollow-abyss border border-hollow-border rounded-lg p-2.5 text-hollow-text focus:outline-none focus:border-hollow-amber"
+                    placeholder="e.g. Nexora Labs, telegram-task, bit.ly/offer, ₹2000 deposit"
+                    className="w-full bg-hollow-abyss border border-hollow-border rounded-lg p-2.5 text-hollow-text focus:outline-none focus:border-hollow-amber font-mono"
                   />
+                </div>
+
+                <div>
+                  <label className="block text-hollow-muted font-bold mb-1">Additional Trigger Keywords (Optional, comma-separated)</label>
+                  <input
+                    type="text"
+                    value={formData.keywords}
+                    onChange={(e) => setFormData({ ...formData, keywords: e.target.value })}
+                    placeholder="e.g. nexora, telegram bonus, ₹1500 registration"
+                    className="w-full bg-hollow-abyss border border-hollow-border rounded-lg p-2.5 text-hollow-text focus:outline-none focus:border-hollow-amber font-mono"
+                  />
+                  <span className="text-[10px] text-hollow-muted mt-0.5 block">
+                    Comma-separated terms that should trigger community radar warnings.
+                  </span>
                 </div>
 
                 <div>

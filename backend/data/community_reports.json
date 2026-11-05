@@ -1,5 +1,100 @@
 [
   {
+    "id": "rep-c91d132d",
+    "domain": "phantomhiringcorp",
+    "keywords": [
+      "intern",
+      "junior",
+      "phantom token task",
+      "phantomhiring",
+      "phantomhiringcorp"
+    ],
+    "opportunity_title": "Web3 Junior Intern",
+    "notes": "Asks students to buy phantom tokens for job verification.",
+    "reporter_alias": "Security Club Lead",
+    "user_consent": true,
+    "created_at": "2026-11-05T18:03:45.649032+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "rep-cfda883f",
+    "domain": "fake-scam-internships.xyz",
+    "keywords": [
+      "fake-scam-internships",
+      "fake-scam-internships.xyz",
+      "frontend",
+      "react",
+      "remote"
+    ],
+    "opportunity_title": "Frontend React Remote",
+    "notes": "Asked for upfront Rs 500 processing charge and immediate UPI transfer",
+    "reporter_alias": "Placement Team",
+    "user_consent": true,
+    "created_at": "2026-11-05T18:03:45.175811+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "rep-a0cd03d1",
+    "domain": "phantomhiringcorp",
+    "keywords": [
+      "intern",
+      "junior",
+      "phantom token task",
+      "phantomhiring",
+      "phantomhiringcorp"
+    ],
+    "opportunity_title": "Web3 Junior Intern",
+    "notes": "Asks students to buy phantom tokens for job verification.",
+    "reporter_alias": "Security Club Lead",
+    "user_consent": true,
+    "created_at": "2026-11-05T18:03:10.668680+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "rep-5889b46b",
+    "domain": "fake-scam-internships.xyz",
+    "keywords": [
+      "fake-scam-internships",
+      "fake-scam-internships.xyz",
+      "frontend",
+      "react",
+      "remote"
+    ],
+    "opportunity_title": "Frontend React Remote",
+    "notes": "Asked for upfront Rs 500 processing charge and immediate UPI transfer",
+    "reporter_alias": "Placement Team",
+    "user_consent": true,
+    "created_at": "2026-11-05T18:03:10.198006+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "rep-b5bbba86",
+    "domain": "phantomhiringcorp",
+    "keywords": [
+      "intern",
+      "junior",
+      "phantom token task",
+      "phantomhiring",
+      "phantomhiringcorp"
+    ],
+    "opportunity_title": "Web3 Junior Intern",
+    "notes": "Asks students to buy phantom tokens for job verification.",
+    "reporter_alias": "Security Club Lead",
+    "user_consent": true,
+    "created_at": "2026-11-05T18:02:52.953965+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "rep-8cd65d85",
+    "domain": "fake-scam-internships.xyz",
+    "opportunity_title": "Frontend React Remote",
+    "notes": "Asked for upfront Rs 500 processing charge and immediate UPI transfer",
+    "reporter_alias": "Placement Team",
+    "user_consent": true,
+    "created_at": "2026-11-05T17:58:35.706151+00:00",
+    "status": "approved"
+  },
+  {
     "id": "rep-67606415",
     "domain": "docs.google.com/forms",
     "opportunity_title": "Greetings from Corizo in collaboration with IIT BOMBAY(Mood Indigo)",

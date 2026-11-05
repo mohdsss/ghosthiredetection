@@ -183,27 +183,130 @@ class AWSService:
         except Exception:
             return []
 
-    def get_community_reports_for_domain(self, domain: str) -> List[Dict[str, Any]]:
-        """Retrieve verified community reports for a domain."""
-        domain_clean = domain.lower().strip()
+    def search_community_reports(self, query: str) -> List[Dict[str, Any]]:
+        """Retrieve verified community reports by domain, keyword, title, or notes."""
+        if not query or not query.strip():
+            return []
+        q = query.lower().strip()
         matched = []
         try:
             with open(self.local_community_file, "r", encoding="utf-8") as f:
                 all_reports = json.load(f)
             for r in all_reports:
                 rep_domain = r.get("domain", "").lower().strip()
-                if rep_domain and (rep_domain in domain_clean or domain_clean in rep_domain):
+                rep_title = r.get("opportunity_title", "").lower().strip()
+                rep_notes = r.get("notes", "").lower().strip()
+                rep_keywords = [k.lower().strip() for k in r.get("keywords", []) if k]
+                
+                # Check for match in domain, keywords, title or notes
+                is_match = False
+                if rep_domain and (q in rep_domain or rep_domain in q):
+                    is_match = True
+                elif any(q in k or k in q for k in rep_keywords if len(k) >= 3):
+                    is_match = True
+                elif q in rep_title or q in rep_notes:
+                    is_match = True
+
+                if is_match:
                     matched.append(r)
         except Exception as e:
             logger.error(f"Error reading community reports: {e}")
         return matched
 
+    def get_community_reports_for_domain(self, domain: str) -> List[Dict[str, Any]]:
+        """Retrieve verified community reports for a domain (backwards-compatible alias)."""
+        return self.search_community_reports(domain)
+
+    def check_community_threats_in_text(self, text: str) -> List[Dict[str, Any]]:
+        """
+        Scan text against all community-reported domains and threat keywords.
+        Returns matched threat records with specific triggered keywords.
+        """
+        if not text or not text.strip():
+            return []
+
+        text_lower = text.lower()
+        matched_threats = []
+        seen_report_ids = set()
+
+        try:
+            with open(self.local_community_file, "r", encoding="utf-8") as f:
+                all_reports = json.load(f)
+
+            for r in all_reports:
+                rep_id = r.get("id")
+                rep_domain = r.get("domain", "").lower().strip()
+                rep_keywords = [k.lower().strip() for k in r.get("keywords", []) if k]
+
+                matched_keyword = None
+
+                # 1. Check exact domain if informative (ignore generic google.com unless subpath matches)
+                if rep_domain and len(rep_domain) >= 4:
+                    if rep_domain in text_lower:
+                        matched_keyword = rep_domain
+
+                # 2. Check explicit keywords
+                if not matched_keyword:
+                    for kw in rep_keywords:
+                        if len(kw) >= 3 and kw in text_lower:
+                            matched_keyword = kw
+                            break
+
+                # 3. Check specific company / org name in domain
+                if not matched_keyword and rep_domain:
+                    domain_clean = rep_domain.replace(".xyz", "").replace(".online", "").replace(".com", "").replace(".in", "")
+                    if len(domain_clean) >= 4 and domain_clean in text_lower:
+                        matched_keyword = domain_clean
+
+                if matched_keyword and rep_id not in seen_report_ids:
+                    seen_report_ids.add(rep_id)
+                    matched_threats.append({
+                        "report_id": rep_id,
+                        "matched_keyword": matched_keyword,
+                        "domain": r.get("domain", ""),
+                        "opportunity_title": r.get("opportunity_title", "Flagged Scam"),
+                        "notes": r.get("notes", ""),
+                        "reporter_alias": r.get("reporter_alias", "Student"),
+                        "created_at": r.get("created_at")
+                    })
+
+        except Exception as e:
+            logger.error(f"Error scanning community threats in text: {e}")
+
+        return matched_threats
+
     def add_community_report(self, report_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Save a new community report."""
+        """Save a new community report with automatic threat keyword indexing."""
         report_id = f"rep-{uuid.uuid4().hex[:8]}"
+        domain_raw = report_data.get("domain", "").strip()
+        
+        # Process keywords
+        raw_keywords = report_data.get("keywords") or []
+        if isinstance(raw_keywords, str):
+            raw_keywords = [k.strip() for k in raw_keywords.split(",") if k.strip()]
+        
+        # Auto-extract keyword from domain if it's a name or slug
+        extracted_keywords = set([k.lower() for k in raw_keywords])
+        if domain_raw:
+            domain_lower = domain_raw.lower()
+            extracted_keywords.add(domain_lower)
+            # If domain has extensions or dashes, add base name
+            base_name = domain_lower.replace(".xyz", "").replace(".com", "").replace(".online", "").replace(".in", "").replace(".org", "")
+            base_name = base_name.replace("http://", "").replace("https://", "").replace("www.", "")
+            if len(base_name) >= 3:
+                extracted_keywords.add(base_name)
+
+        title = report_data.get("opportunity_title", "").strip()
+        if title:
+            # If title mentions specific company
+            for word in title.split():
+                if len(word) >= 4 and word.isalpha():
+                    extracted_keywords.add(word.lower())
+
         record = {
             "id": report_id,
-            "domain": report_data.get("domain", "").lower().strip(),
+            "domain": domain_raw.lower(),
+            "keywords": sorted(list(extracted_keywords)),
             "opportunity_title": report_data.get("opportunity_title", "Unspecified Offer"),
             "notes": report_data.get("notes", ""),
             "reporter_alias": report_data.get("reporter_alias", "Anonymous Student"),

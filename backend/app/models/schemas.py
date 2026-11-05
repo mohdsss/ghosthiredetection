@@ -27,7 +27,8 @@ class AnalyzeResponse(BaseModel):
     analyzed_at: str = Field(default_factory=lambda: datetime.now(timezone.utc).isoformat())
 
 class CommunityReportCreate(BaseModel):
-    domain: str = Field(..., description="Target domain, handle, or organization identifier")
+    domain: str = Field(..., description="Target domain, organization name, or scam keyword")
+    keywords: Optional[List[str]] = Field(default_factory=list, description="Specific threat keywords to flag")
     opportunity_title: Optional[str] = Field(None, description="Job or internship title")
     notes: str = Field(..., description="Student experience or suspicious reason")
     user_consent: bool = Field(True, description="Explicit user consent to share anonymized pattern")
@@ -37,6 +38,7 @@ class CommunityReportCreate(BaseModel):
 class CommunityReportItem(BaseModel):
     id: str
     domain: str
+    keywords: List[str] = Field(default_factory=list)
     opportunity_title: Optional[str]
     notes: str
     reporter_alias: str
@@ -47,6 +49,7 @@ class CommunityDomainSummary(BaseModel):
     domain: str
     total_reports: int
     risk_indicator: str
+    matched_keyword: Optional[str] = None
     reports: List[CommunityReportItem] = Field(default_factory=list)
 
 class PresignedUrlResponse(BaseModel):

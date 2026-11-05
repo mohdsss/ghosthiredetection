@@ -1,0 +1,30 @@
+[
+  {
+    "id": "rep-41bae1e4",
+    "domain": "fake-scam-internships.xyz",
+    "opportunity_title": "Frontend React Remote",
+    "notes": "Asked for upfront Rs 500 processing charge and immediate UPI transfer",
+    "reporter_alias": "Placement Team",
+    "user_consent": true,
+    "created_at": "2026-11-05T12:18:08.395399+00:00",
+    "status": "approved"
+  },
+  {
+    "id": "rep-demo-001",
+    "domain": "nexora-internship-portal.xyz",
+    "opportunity_title": "Fake Data Entry Intern",
+    "notes": "Lookalike website redirecting to Telegram group asking for \u20b9999 registration fee.",
+    "reporter_alias": "Campus placement rep",
+    "created_at": "2026-11-05T12:00:00Z",
+    "status": "approved"
+  },
+  {
+    "id": "rep-demo-002",
+    "domain": "nexoralabs-careers.xyz",
+    "opportunity_title": "Frontend Developer Intern",
+    "notes": "Sent fake offer letter from @gmail.com claiming 100% selection guarantee.",
+    "reporter_alias": "CS Student @ Delhi",
+    "created_at": "2026-11-05T12:00:00Z",
+    "status": "approved"
+  }
+]

@@ -1,0 +1,125 @@
+[
+  {
+    "id": "gh-c93a9a2158",
+    "risk_score": 65,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "UPFRONT_PAYMENT",
+        "points": 25,
+        "evidence": "Pay \u20b9999",
+        "recommendation": "Never pay upfront fees for a job or internship. Legitimate employers pay employees, not the reverse."
+      },
+      {
+        "signal": "GUARANTEED_SELECTION",
+        "points": 15,
+        "evidence": "Selection is guaranteed",
+        "recommendation": "Be skeptical of offers promising 100% selection or bypassing technical evaluation and merit checks."
+      },
+      {
+        "signal": "SUSPICIOUS_URL",
+        "points": 15,
+        "evidence": "bit.ly/example.",
+        "recommendation": "Shortened links obscure the final destination. Always navigate directly through the employer's official website."
+      },
+      {
+        "signal": "ARTIFICIAL_URGENCY",
+        "points": 10,
+        "evidence": "Reply within 30 minutes",
+        "recommendation": "Scammers leverage short deadlines to provoke hasty decisions. Take pause and independently verify."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You have been shortlisted for the Nexora Labs internship. Pay \u20b9999 registration fees today. Selection is guaranteed. Apply through bit.ly/example. Reply within 30 minutes to secure your seat.",
+    "detected_domains": [
+      "bit.ly"
+    ],
+    "community_flags": 0,
+    "source": "screenshot_local_simulation",
+    "analyzed_at": "2026-11-05T13:51:03.147973+00:00"
+  },
+  {
+    "id": "gh-8784c07c0f",
+    "risk_score": 65,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "UPFRONT_PAYMENT",
+        "points": 25,
+        "evidence": "Pay \u20b9999",
+        "recommendation": "Never pay upfront fees for a job or internship. Legitimate employers pay employees, not the reverse."
+      },
+      {
+        "signal": "GUARANTEED_SELECTION",
+        "points": 15,
+        "evidence": "Selection is guaranteed",
+        "recommendation": "Be skeptical of offers promising 100% selection or bypassing technical evaluation and merit checks."
+      },
+      {
+        "signal": "SUSPICIOUS_URL",
+        "points": 15,
+        "evidence": "bit.ly/example.",
+        "recommendation": "Shortened links obscure the final destination. Always navigate directly through the employer's official website."
+      },
+      {
+        "signal": "ARTIFICIAL_URGENCY",
+        "points": 10,
+        "evidence": "Reply within 30 minutes",
+        "recommendation": "Scammers leverage short deadlines to provoke hasty decisions. Take pause and independently verify."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You have been shortlisted for the Nexora Labs internship. Pay \u20b9999 registration fees today. Selection is guaranteed. Apply through bit.ly/example. Reply within 30 minutes to secure your seat.",
+    "detected_domains": [
+      "bit.ly"
+    ],
+    "community_flags": 0,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T12:18:08.332125+00:00"
+  },
+  {
+    "id": "gh-7024cb5d28",
+    "risk_score": 75,
+    "risk_level": "HIGH",
+    "findings": [
+      {
+        "signal": "UPFRONT_PAYMENT",
+        "points": 25,
+        "evidence": "Pay \u20b9999",
+        "recommendation": "Never pay upfront fees for a job or internship. Legitimate employers pay employees, not the reverse."
+      },
+      {
+        "signal": "GUARANTEED_SELECTION",
+        "points": 15,
+        "evidence": "Selection is guaranteed",
+        "recommendation": "Be skeptical of offers promising 100% selection or bypassing technical evaluation and merit checks."
+      },
+      {
+        "signal": "SUSPICIOUS_URL",
+        "points": 15,
+        "evidence": "bit.ly/example.",
+        "recommendation": "Shortened links obscure the final destination. Always navigate directly through the employer's official website."
+      },
+      {
+        "signal": "ARTIFICIAL_URGENCY",
+        "points": 10,
+        "evidence": "Reply within 30 minutes",
+        "recommendation": "Scammers leverage short deadlines to provoke hasty decisions. Take pause and independently verify."
+      },
+      {
+        "signal": "COMMUNITY_REPORTS",
+        "points": 10,
+        "evidence": "1 user report(s) flagged against associated domains",
+        "recommendation": "This domain or pattern has previously been flagged by fellow students in the community."
+      }
+    ],
+    "recommendation": "DO NOT PAY or share credentials. High risk of fraud identified. Independently verify the employer through their official careers portal.",
+    "extracted_text": "Congratulations! You have been shortlisted for the Nexora Labs internship. Pay \u20b9999 registration fees today. Selection is guaranteed. Apply through bit.ly/example. Reply within 30 minutes to secure your seat.",
+    "detected_domains": [
+      "bit.ly"
+    ],
+    "community_flags": 1,
+    "source": "pasted_text",
+    "analyzed_at": "2026-11-05T12:17:08.944518+00:00"
+  }
+]
